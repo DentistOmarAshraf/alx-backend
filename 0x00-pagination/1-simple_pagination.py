@@ -27,10 +27,10 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        assert isinstance(page, int), "page must be int"
-        assert page >= 0, "page must be positive number"
-        assert isinstance(page_size, int), "page_size must be int"
-        assert page_size > 0, "page_size must be larger than 0"
+        assert isinstance(page, int)
+        assert page > 0
+        assert isinstance(page_size, int)
+        assert page_size > 0
         start: int = (page - 1) * page_size
         end: int = page * page_size
         return self.dataset()[start: end]
