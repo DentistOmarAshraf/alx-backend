@@ -26,17 +26,11 @@ class Server:
 
         return self.__dataset
 
-    def index_range(self, page: int, page_size: int
-                    ) -> Optional[Tuple[int, int]]:
-        return ((page - 1) * page_size, page * page_size)
-
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         assert isinstance(page, int), "page must be int"
         assert page >= 0, "page must be positive number"
         assert isinstance(page_size, int), "page_size must be int"
         assert page_size > 0, "page_size must be larger than 0"
-
-        start: int
-        end: int
-        start, end = self.index_range(page, page_size)
+        start: int = (page - 1) * page_size
+        end: int = page * page_size
         return self.dataset()[start: end]
