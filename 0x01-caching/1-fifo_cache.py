@@ -34,7 +34,7 @@ class FIFOCache(BaseCaching):
             del (self.cache_data[first_element_key])
             print('DISCARD: {}'.format(first_element_key))
 
-    def get(self, key, item):
+    def get(self, key):
         """get element from parent dict
         """
         if not key:
