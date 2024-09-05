@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""FIFOCache - class of cache based on FIFO algorithm
+"""
+FIFOCache - class of cache based on FIFO algorithm
 to discard items
 """
 from base_caching import BaseCaching
 
 
 class FIFOCache(BaseCaching):
-    """FIFOCache - first in first out
+    """
+    FIFOCache - first in first out
     """
 
     def put(self, key, item):
