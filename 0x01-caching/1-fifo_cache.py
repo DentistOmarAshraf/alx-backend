@@ -13,10 +13,10 @@ class FIFOCache(BaseCaching):
         """add item to parent class dict
         """
         if not key or not item:
-            return
+            return None
         self.cache_data[key] = item
 
-        if len(self.cache_data) > self.MAX_ITEMS:
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             first_element_key = next(iter(self.cache_data))
             del (self.cache_data[first_element_key])
             print('DISCARD: {}'.format(first_element_key))
@@ -25,5 +25,5 @@ class FIFOCache(BaseCaching):
         """get element from parent dict
         """
         if not key:
-            return
+            return None
         return self.cache_data.get(key)
