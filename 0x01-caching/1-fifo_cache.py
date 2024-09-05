@@ -14,14 +14,12 @@ class FIFOCache(BaseCaching):
         """
         if not key or not item:
             return
-        if key in self.cache_data:
-            self.cache_data[key] = item
-            return
-        if len(self.cache_data) == 4:
+        self.cache_data[key] = item
+
+        if len(self.cache_data) > self.MAX_ITEMS:
             first_element_key = next(iter(self.cache_data))
             del (self.cache_data[first_element_key])
             print('DISCARD: {}'.format(first_element_key))
-        self.cache_data[key] = item
 
     def get(self, key, item):
         """get element from parent dict
