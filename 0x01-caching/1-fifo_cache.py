@@ -11,6 +11,9 @@ class FIFOCache(BaseCaching):
     FIFOCache - first in first out
     """
 
+    def __init__(self):
+        super().__init__()
+
     def put(self, key, item):
         """add item to parent class dict
         """
