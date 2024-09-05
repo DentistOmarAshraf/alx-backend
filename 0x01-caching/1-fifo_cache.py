@@ -20,7 +20,7 @@ class FIFOCache(BaseCaching):
         if len(self.cache_data) == 4:
             first_element_key = next(iter(self.cache_data))
             del (self.cache_data[first_element_key])
-            print('DISCARD {}'.format(first_element_key))
+            print('DISCARD: {}'.format(first_element_key))
         self.cache_data[key] = item
 
     def get(self, key, item):
