@@ -33,6 +33,8 @@ class LIFOCache(BaseCaching):
             self.key_list.append(key)
 
     def get(self, key):
+        """get element from parent dict
+        """
         if not key:
             return None
         return self.cache_data.get(key)
