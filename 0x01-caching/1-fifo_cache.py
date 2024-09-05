@@ -28,4 +28,4 @@ class FIFOCache(BaseCaching):
         """
         if not key:
             return
-        return self.cache_data[key]
+        return self.cache_data.get(key)
