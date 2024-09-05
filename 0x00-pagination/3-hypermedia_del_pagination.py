@@ -45,19 +45,20 @@ class Server:
         assert isinstance(index, int)
         assert isinstance(page_size, int)
         assert page_size > 0
-        assert 0 <= index < len(self.indexed_dataset())
+        assert index >= 0 and index < len(self.indexed_dataset())
 
-        my_list, my_dict = list(), dict()
+        indexed_data = self.indexed_dataset()
         next_index = index + page_size
-        indexed_dataset = self.indexed_dataset()
+        list_data = list()
         for i in range(index, next_index):
-            if indexed_dataset.get(i):
-                my_list.append(indexed_dataset[i])
+            if indexed_data.get(i):
+                list_data.append(indexed_data[i])
             else:
                 next_index += 1
-                i += 1
-        my_dict['index'] = index
-        my_dict['data'] = my_list
-        my_dict['page_size'] = page_size
-        my_dict['next_index'] = next_index
-        return my_dict
+        dict_to_ret = {
+            'index': index,
+            'data': list_data,
+            'page_size': page_size,
+            'next_index': next_index
+        }
+        return dict_to_ret
