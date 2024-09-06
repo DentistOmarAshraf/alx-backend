@@ -34,6 +34,8 @@ class LFUCache(BaseCaching):
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             dict_iterator = iter(self.key_list)
             least_frequent_used = next(dict_iterator)
+            if least_frequent_used == key:
+                least_frequent_used = next(dict_iterator)
 
             duplicate = False
             chk_duplicate = []
