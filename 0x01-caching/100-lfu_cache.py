@@ -24,7 +24,7 @@ class LFUCache(BaseCaching):
 
         self.cache_data[key] = item
 
-        if not key in self.key_list.keys():
+        if key not in self.key_list.keys():
             self.key_list[key] = 0
         else:
             self.key_list[key] += 1
@@ -51,12 +51,12 @@ class LFUCache(BaseCaching):
             else:
                 for element in self.key_list_lru:
                     if element in chk_duplicate:
-                        del(self.cache_data[element])
+                        del (self.cache_data[element])
                         print('DISCARD {}'.format(element))
-                        del(self.key_list[element])
+                        del (self.key_list[element])
                         self.key_list_lru.remove(element)
                         break
-                        
+
         if key not in self.key_list_lru:
             self.key_list_lru.append(key)
         else:
@@ -66,6 +66,8 @@ class LFUCache(BaseCaching):
         # print("from put {}".format(self.key_list_lru))
 
     def get(self, key):
+        """Get element
+        """
         if not key:
             return None
         item = self.cache_data.get(key)
@@ -74,7 +76,7 @@ class LFUCache(BaseCaching):
             self.key_list_lru.remove(key)
             self.key_list_lru.append(key)
         self.key_list = dict(sorted(self.key_list.items(),
-                                 key=lambda item: item[1]))
+                                    key=lambda item: item[1]))
         # print("from get {}".format(self.key_list))
         # print("from get {}".format(self.key_list_lru))
         return item
