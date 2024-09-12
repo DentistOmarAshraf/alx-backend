@@ -15,6 +15,14 @@ users = {
 }
 
 
+def get_user(login_id: int = None) -> Dict:
+    """get_user
+    """
+    if not login_id:
+        return None
+    return users.get(login_id, None)
+
+
 class Config:
     """
     App Config
@@ -27,6 +35,18 @@ class Config:
 app = Flask(__name__)
 app.config.from_object(Config)
 babel = Babel(app)
+
+
+@app.before_request
+def before_request() -> None:
+    """Getting user id from args
+    """
+    user_id = request.args.get('login_as', None)
+    if user_id:
+        the_user = get_user(int(user_id))
+    else:
+        the_user = None
+    g.user = the_user
 
 
 @babel.localeselector
@@ -42,25 +62,15 @@ def get_locale() -> Any:
         return prefered_lang
     return request.accept_languages.best_match(Config.LANGUAGES)
 
-@app.before_request
-def get_user() -> None:
-    """Getting user id from args
-    """
-    user_id = request.args.get('login_as', None)
-    if user_id:
-        the_user = users.get(int(user_id), None)
-    else:
-        the_user = None
-    g.user = the_user
-
 
 @app.route("/", strict_slashes=False, methods=['GET'])
 def home() -> Any:
     """index page
     """
-    the_user = getattr(g,'user', None)
+    the_user = getattr(g, 'user', None)
     if the_user:
-        return render_template("5-index.html", username=the_user.get('name', None))
+        return render_template("5-index.html",
+                               username=the_user.get('name', None))
     return render_template("5-index.html", username=None)
 
 
