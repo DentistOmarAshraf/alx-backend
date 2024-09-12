@@ -55,13 +55,13 @@ def get_locale() -> Any:
     """
     lang = request.args.get('locale', None)
     the_user = getattr(g, 'user', None)
-    user_lang = the_user.get('locale', None)
 
     if lang and lang in Config.LANGUAGES:
         return lang
-    if the_user and user_lang:
+    if the_user:
+        user_lang = the_user.get('locale', None)
         if user_lang in Config.LANGUAGES:
-            return the_user.get('locale')
+            return user_lang
     return request.accept_languages.best_match(Config.LANGUAGES)
 
 
