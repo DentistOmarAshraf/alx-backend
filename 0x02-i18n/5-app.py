@@ -53,13 +53,13 @@ def before_request() -> None:
 def get_locale() -> Any:
     """preferd language from request header (Accept Language)
     """
+    lang = request.args.get('locale', None)
     the_user = getattr(g, 'user', None)
-    if the_user:
-        prefered_lang = the_user.get('locale', None)
-    else:
-        prefered_lang = request.args.get('locale', None)
-    if prefered_lang and prefered_lang in Config.LANGUAGES:
-        return prefered_lang
+    if lang and lang in Config.LANGUAGES:
+        return lang
+    if the_user and the_user.get('locale', None):
+        if the_user.get('locale') in Config.LANGUAGES:
+            return the_user.get('locale')
     return request.accept_languages.best_match(Config.LANGUAGES)
 
 
