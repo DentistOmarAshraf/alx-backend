@@ -57,7 +57,7 @@ def get_locale() -> Any:
     if the_user:
         prefered_lang = the_user.get('locale', None)
     else:
-        prefered_lang = None
+        prefered_lang = request.args.get('locale', None)
     if prefered_lang and prefered_lang in Config.LANGUAGES:
         return prefered_lang
     return request.accept_languages.best_match(Config.LANGUAGES)
